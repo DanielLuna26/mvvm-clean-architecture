@@ -36,6 +36,9 @@ object Versions {
     // Coroutines
     const val coroutines = "1.3.9"
 
+    // Annotations
+    const val annotations = "1.0.0"
+
     /*
         BUILD PLUGINS
      */

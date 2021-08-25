@@ -8,6 +8,7 @@ plugins {
 
 android {
     compileSdk = AppConfig.compileSdk
+    buildToolsVersion = "30.0.3"
 
     defaultConfig {
         applicationId = AppConfig.applicationId
@@ -34,10 +35,15 @@ android {
     }
 
     android.buildFeatures.viewBinding = true
+    android.buildFeatures.dataBinding = true
+
+//    configurations {
+//        implementation.get().exclude(mapOf("group" to "org.jetbrains", "module" to "annotations"))
+//    }
 }
 
 dependencies {
-
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(Dependencies.standardLibs)
     implementation(Dependencies.lifecycleLibs)
     implementation(Dependencies.activityFragmentKtxLibs)
@@ -47,6 +53,8 @@ dependencies {
     implementation(Dependencies.roomLibs)
     implementation(Dependencies.diLibs)
     implementation(Dependencies.coroutinesLibs)
+
+    kapt(Dependencies.compilerLibs)
 
     testImplementation(TestDependencies.testLibraries)
 
