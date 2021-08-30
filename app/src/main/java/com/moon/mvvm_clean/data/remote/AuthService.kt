@@ -8,8 +8,13 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface AuthService {
-    @POST("api/sign-in")
+    @POST("sign-in")
     suspend fun postSignIn(
+        @Body signIn: SignIn
+    ) : Response<Session>
+
+    @POST("sign-up")
+    suspend fun postSignUp(
         @Body signIn: SignIn
     ) : Response<Session>
 }

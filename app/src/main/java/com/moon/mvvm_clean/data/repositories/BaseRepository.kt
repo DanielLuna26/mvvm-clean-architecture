@@ -24,7 +24,7 @@ abstract class BaseRepository {
                             .Failure(
                                 false,
                                 throwable.response()?.code(),
-                                throwable.response()?.errorBody().toString()
+                                throwable.response()?.message()
                             )
                     is NoInternetException ->
                         Resource.Failure(true, null, null)

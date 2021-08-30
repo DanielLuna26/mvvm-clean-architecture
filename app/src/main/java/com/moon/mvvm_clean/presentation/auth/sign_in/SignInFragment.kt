@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.moon.mvvm_clean.R
@@ -16,6 +17,8 @@ import com.moon.mvvm_clean.utils.delegate.viewBinding
 import com.moon.mvvm_clean.utils.handleApiErrors
 import com.moon.mvvm_clean.utils.snackBar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass.
@@ -59,9 +62,10 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
         runObservers()
     }
 
-    private fun runObservers() {
-        viewModel.result.observe(viewLifecycleOwner) {
-            val result = it ?: return@observe
+    private fun runObservers() = viewLifecycleOwner.lifecycleScope.launch {
+
+        viewModel.result.collect {
+            val result = it ?: return@collect
 
             when (result) {
                 is Resource.Success -> {

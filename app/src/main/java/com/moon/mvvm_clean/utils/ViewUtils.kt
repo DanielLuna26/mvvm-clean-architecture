@@ -11,6 +11,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
 import com.moon.mvvm_clean.R
 import com.moon.mvvm_clean.domain.Resource
+import com.moon.mvvm_clean.domain.Response
+import com.moon.mvvm_clean.presentation.auth.sign_in.SignInFragment
+import com.moon.mvvm_clean.presentation.auth.sign_up.SignUpFragment
 
 /**
  * Created by Daniel Luna on 3/2/21
@@ -74,7 +77,15 @@ fun Fragment.handleApiErrors (
     when {
         failure.isNetworkError -> requireView().snackBar("You need a network connection")
         failure.errorCode == 401 -> {
-
+            when (this) {
+                is SignInFragment -> requireView().snackBar("Your credentials are invalid")
+            }
+        }
+        failure.errorCode == 422 -> {
+            when (this) {
+                is SignUpFragment -> requireView().snackBar("Maybe you email is already registered")
+                else -> requireView().snackBar("Check the data that you're trying to send")
+            }
         }
         else -> requireView().snackBar(failure.errorBody ?: "Unknown error")
     }

@@ -1,13 +1,10 @@
 package com.moon.mvvm_clean.presentation.auth.sign_in
 
-import android.util.Log
-import androidx.annotation.StringRes
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.moon.mvvm_clean.R
 import com.moon.mvvm_clean.data.datastore.UserPreferences
 import com.moon.mvvm_clean.domain.Resource
 import com.moon.mvvm_clean.domain.Response
@@ -17,25 +14,30 @@ import com.moon.mvvm_clean.domain.response.Session
 import com.moon.mvvm_clean.utils.isEmailValid
 import com.moon.mvvm_clean.utils.isValidFieldRequired
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SignInViewModel @Inject constructor(private val doLoginUseCase: DoLoginUseCase) : ViewModel() {
+class SignInViewModel @Inject constructor(
+    private val doLoginUseCase: DoLoginUseCase,
+    private val userPreferences: UserPreferences
+) : ViewModel() {
     val email = MutableLiveData<String>()
     val password = MutableLiveData<String>()
 
-    private var _result = MutableLiveData<Resource<Response<Session>>?>()
-    val result : LiveData<Resource<Response<Session>>?> get() = _result
+    private var _result = MutableStateFlow<Resource<Response<Session>>?>(null)
+    val result : StateFlow<Resource<Response<Session>>?> get() = _result
 
-    val formErrors = ObservableArrayList<FormErrorsLogin>()
+    val formErrors = ObservableArrayList<FormErrors>()
 
     fun isFormValid() : Boolean {
         formErrors.clear()
 
-        if (!isEmailValid(email.value)) formErrors.add(FormErrorsLogin.EMAIL)
-        if (!isValidFieldRequired(password.value)) formErrors.add(FormErrorsLogin.PASSWORD)
+        if (!isEmailValid(email.value)) formErrors.add(FormErrors.EMAIL)
+        if (!isValidFieldRequired(password.value)) formErrors.add(FormErrors.PASSWORD)
 
         return formErrors.isEmpty()
     }
@@ -44,13 +46,15 @@ class SignInViewModel @Inject constructor(private val doLoginUseCase: DoLoginUse
         doLoginUseCase
             .invoke(SignIn(email.value!!, password.value!!))
             .collect {
-                _result.postValue(it)
+                if (it is Resource.Success)
+                    userPreferences.storeToken(it.value.data?.token!!)
+                _result.value = it
             }
     }
 
-    fun resetResult() { _result.postValue(null) }
+    fun resetResult() { _result.value = null }
 
-    enum class FormErrorsLogin {
+    enum class FormErrors {
         EMAIL,
         PASSWORD
     }

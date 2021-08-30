@@ -37,9 +37,19 @@ android {
     android.buildFeatures.viewBinding = true
     android.buildFeatures.dataBinding = true
 
-//    configurations {
-//        implementation.get().exclude(mapOf("group" to "org.jetbrains", "module" to "annotations"))
-//    }
+    kapt { correctErrorTypes = true }
+
+    flavorDimensions.add("flavorDimens")
+
+    productFlavors {
+        create("develop") {
+            applicationIdSuffix = ".develop"
+            buildConfigField("String", "HOST", Services.Develop.hostUrl)
+        }
+        create("production") {
+            buildConfigField("String", "HOST", Services.Release.hostUrl)
+        }
+    }
 }
 
 dependencies {

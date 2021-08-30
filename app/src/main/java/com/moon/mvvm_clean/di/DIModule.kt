@@ -3,6 +3,7 @@ package com.moon.mvvm_clean.di
 import android.content.Context
 import com.moon.mvvm_clean.BuildConfig
 import com.moon.mvvm_clean.data.remote.AuthService
+import com.moon.mvvm_clean.data.remote.JsonPlaceholderService
 import com.moon.mvvm_clean.data.remote.interceptors.NetworkConnectionInterceptor
 import com.moon.mvvm_clean.utils.DispatcherProvider
 import dagger.Module
@@ -25,7 +26,7 @@ import javax.inject.Singleton
 object DIModule {
 
     @Provides
-    fun provideBaseUrl() : String = "http://localhost:3333"
+    fun provideBaseUrl() : String = BuildConfig.HOST
 
     @Provides
     fun provideNetworkInterceptor(@ApplicationContext context: Context) : NetworkConnectionInterceptor {
@@ -51,16 +52,22 @@ object DIModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient, BASE_URL:String) : Retrofit = Retrofit.Builder()
-        .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl(BASE_URL)
-        .client(okHttpClient)
-        .build()
+    fun provideRetrofit(okHttpClient: OkHttpClient, BASE_URL:String) : Retrofit =
+        Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(BASE_URL)
+            .client(okHttpClient)
+            .build()
 
     @Singleton
     @Provides
     fun provideAuthService(retrofit: Retrofit) : AuthService =
         retrofit.create(AuthService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideJsonPlaceholderService(retrofit: Retrofit) : JsonPlaceholderService =
+        retrofit.create(JsonPlaceholderService::class.java)
 
     @Singleton
     @Provides

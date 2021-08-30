@@ -20,16 +20,27 @@ class UserPreferencesImpl @Inject constructor(@ApplicationContext context: Conte
 
     companion object {
         val keyTheme = preferencesKey<Boolean>("key_theme")
+        val keyToken = preferencesKey<String>("token")
     }
 
     override val isNightMode: Flow<Boolean>
         get() = dataStore.data.map {
             it[keyTheme] ?: false
         }
+    override val token: Flow<String?>
+        get() = dataStore.data.map {
+            it[keyToken]
+        }
 
     override suspend fun toggleNightMode() {
         dataStore.edit {
             it[keyTheme] = !(it[keyTheme] ?: false)
+        }
+    }
+
+    override suspend fun storeToken(token: String) {
+        dataStore.edit {
+            it[keyToken] = token
         }
     }
 }

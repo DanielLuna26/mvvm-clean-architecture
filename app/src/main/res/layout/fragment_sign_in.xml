@@ -7,7 +7,7 @@
 
         <import type="android.view.View" />
 
-        <import type="com.moon.mvvm_clean.presentation.auth.sign_in.SignInViewModel.FormErrorsLogin" />
+        <import type="com.moon.mvvm_clean.presentation.auth.sign_in.SignInViewModel.FormErrors" />
 
         <variable
             name="viewModel"
@@ -53,7 +53,7 @@
                     android:layout_marginTop="32dp"
                     android:hint="Email"
                     app:errorEnabled="true"
-                    app:errorText="@{viewModel.formErrors.contains(FormErrorsLogin.EMAIL) ? @string/error_email : null}">
+                    app:errorText="@{viewModel.formErrors.contains(FormErrors.EMAIL) ? @string/error_email : null}">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -73,7 +73,7 @@
                     android:layout_marginTop="8dp"
                     android:hint="Password"
                     app:errorEnabled="true"
-                    app:errorText="@{viewModel.formErrors.contains(FormErrorsLogin.PASSWORD) ? @string/error_password : null}">
+                    app:errorText="@{viewModel.formErrors.contains(FormErrors.PASSWORD) ? @string/error_password : null}">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/sign_in_edtxt_password"
@@ -104,6 +104,7 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:enabled="@{!viewModel.result.loading}"
                     android:text="Sign up" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>

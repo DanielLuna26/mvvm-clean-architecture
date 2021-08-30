@@ -13,4 +13,5 @@ sealed class Resource<out T> {
     object Loading : Resource<Nothing>()
 
     val isLoading get() = this is Loading
+    val data get() = (this as Success).value
 }

@@ -4,6 +4,7 @@
     <string name="title_sign_in">Sign in</string>
     <string name="error_email">Invalid email</string>
     <string name="error_password">Password is required</string>
+    <string name="error_confirm_password">Confirm password</string>
 
     <string name="title_sign_up">Sign up</string>
 

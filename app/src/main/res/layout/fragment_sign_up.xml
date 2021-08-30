@@ -8,11 +8,12 @@
 
         <import type="android.view.View" />
 
-        <import type="com.moon.mvvm_clean.presentation.auth.sign_in.SignInViewModel.FormErrorsLogin" />
+        <import type="com.moon.mvvm_clean.presentation.auth.sign_up.SignUpViewModel.FormErrors" />
 
         <variable
             name="viewModel"
-            type="com.moon.mvvm_clean.presentation.auth.sign_in.SignInViewModel" />
+            type="com.moon.mvvm_clean.presentation.auth.sign_up.SignUpViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,7 +30,6 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.LinearLayoutCompat
-
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="16dp"
@@ -54,14 +54,13 @@
                     android:layout_marginTop="32dp"
                     android:hint="Email"
                     app:errorEnabled="true"
-                    app:errorText="@{viewModel.formErrors.contains(FormErrorsLogin.EMAIL) ? @string/error_email : null}">
+                    app:errorText="@{viewModel.formErrors.contains(FormErrors.EMAIL) ? @string/error_email : null}">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textEmailAddress"
                         android:text="@={viewModel.email}">
-
                         <requestFocus />
                     </com.google.android.material.textfield.TextInputEditText>
                 </com.google.android.material.textfield.TextInputLayout>
@@ -74,7 +73,7 @@
                     android:layout_marginTop="8dp"
                     android:hint="Password"
                     app:errorEnabled="true"
-                    app:errorText="@{viewModel.formErrors.contains(FormErrorsLogin.PASSWORD) ? @string/error_password : null}">
+                    app:errorText="@{viewModel.formErrors.contains(FormErrors.PASSWORD) ? @string/error_password : null}">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/sign_up_edtxt_password"
@@ -93,7 +92,7 @@
                     android:layout_marginTop="8dp"
                     android:hint="Confirm password"
                     app:errorEnabled="true"
-                    app:errorText="@{viewModel.formErrors.contains(FormErrorsLogin.PASSWORD) ? @string/error_password : null}">
+                    app:errorText="@{viewModel.formErrors.contains(FormErrors.CONFIRM_PASSWORD) ? @string/error_confirm_password : null}">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/sign_up_edtxt_confirm_password"
@@ -101,7 +100,7 @@
                         android:layout_height="wrap_content"
                         android:imeOptions="actionDone"
                         android:inputType="textEmailAddress"
-                        android:text="@={viewModel.password}" />
+                        android:text="@={viewModel.confirmPassword}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.button.MaterialButton

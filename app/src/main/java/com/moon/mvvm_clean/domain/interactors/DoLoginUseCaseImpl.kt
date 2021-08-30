@@ -18,10 +18,6 @@ class DoLoginUseCaseImpl @Inject constructor(
 
         emit(Resource.Loading)
 
-        delay(2000)
-
-        //emit(repository.signIn(signIn))
-
-        emit(Resource.Success(Response("OK", Session(""))))
+        emit(repository.signIn(signIn))
     }
 }
