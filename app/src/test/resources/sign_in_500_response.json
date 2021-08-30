@@ -1,0 +1,5 @@
+{
+  "code": "E_INTERNAL_SERVER_ERROR",
+  "data": null,
+  "error": "Exception: E_INTERNAL_SERVER_ERROR: Internal server error\n    at AuthController.signIn (/Users/daniel/Develop/node/adonis-test-mvvm/app/Controllers/Http/AuthController.ts:18:15)\n    at processTicksAndRejections (internal/process/task_queues.js:95:5)\n    at Object.PreCompiler.runRouteHandler [as fn] (/Users/daniel/Develop/node/adonis-test-mvvm/node_modules/@adonisjs/http-server/build/src/Server/PreCompiler/index.js:47:31)\n    at Server.handleRequest (/Users/daniel/Develop/node/adonis-test-mvvm/node_modules/@adonisjs/http-server/build/src/Server/index.js:108:13)"
+}

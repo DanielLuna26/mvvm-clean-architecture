@@ -36,6 +36,9 @@ object Versions {
     // Coroutines
     const val coroutines = "1.3.9"
 
+    // Annotations
+    const val annotations = "1.0.0"
+
     /*
         BUILD PLUGINS
      */
@@ -45,7 +48,12 @@ object Versions {
     /*
         TEST
      */
-    const val junit = "4.+"
+    const val junit = "4.12"
+    const val mockito = "2.2.0"
+    const val mockitoCore = "1.10.19"
+    const val coroutinesTest = "1.4.2"
+    const val coreTesting = "2.1.0"
+    const val mockWebServer = "4.9.1"
 
     /*
         ANDROID TEST

@@ -8,6 +8,7 @@ plugins {
 
 android {
     compileSdk = AppConfig.compileSdk
+    buildToolsVersion = "30.0.3"
 
     defaultConfig {
         applicationId = AppConfig.applicationId
@@ -34,10 +35,25 @@ android {
     }
 
     android.buildFeatures.viewBinding = true
+    android.buildFeatures.dataBinding = true
+
+    kapt { correctErrorTypes = true }
+
+    flavorDimensions.add("flavorDimens")
+
+    productFlavors {
+        create("develop") {
+            applicationIdSuffix = ".develop"
+            buildConfigField("String", "HOST", Services.Develop.hostUrl)
+        }
+        create("production") {
+            buildConfigField("String", "HOST", Services.Release.hostUrl)
+        }
+    }
 }
 
 dependencies {
-
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(Dependencies.standardLibs)
     implementation(Dependencies.lifecycleLibs)
     implementation(Dependencies.activityFragmentKtxLibs)
@@ -47,6 +63,8 @@ dependencies {
     implementation(Dependencies.roomLibs)
     implementation(Dependencies.diLibs)
     implementation(Dependencies.coroutinesLibs)
+
+    kapt(Dependencies.compilerLibs)
 
     testImplementation(TestDependencies.testLibraries)
 

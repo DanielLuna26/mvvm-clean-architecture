@@ -6,7 +6,8 @@ object Dependencies {
     private const val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
     private const val material = "com.google.android.material:material:${Versions.material}"
     private const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
-    const val support = "androidx.legacy:legacy-support-v4:${Versions.support}"
+    private const val support = "androidx.legacy:legacy-support-v4:${Versions.support}"
+    private const val annotationLibrary = "androidx.annotation:annotation:${Versions.annotations}"
 
     val standardLibs = arrayListOf<String>().apply {
         add(stdLib)
@@ -15,8 +16,10 @@ object Dependencies {
         add(material)
         add(constraintLayout)
         add(support)
+        add(annotationLibrary)
     }
 
+    private const val lifecycleJava8 = "androidx.lifecycle:lifecycle-common-java8:${Versions.lifeCycle}"
     private const val lifecycleRuntime = "androidx.lifecycle:lifecycle-runtime:${Versions.lifeCycle}"
     private const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifeCycle}"
     private const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifeCycle}"
@@ -24,10 +27,10 @@ object Dependencies {
     private const val savedState = "androidx.lifecycle:lifecycle-viewmodel-savedstate:${Versions.lifeCycle}"
 
     val lifecycleLibs = arrayListOf<String>().apply {
+        add(lifecycleJava8)
         add(lifecycleRuntime)
         add(viewModel)
         add(liveData)
-        add(lifecycleCompiler)
         add(savedState)
     }
 
@@ -51,24 +54,15 @@ object Dependencies {
     val uILibs = arrayListOf<String>().apply {
         add(cardView)
         add(recyclerView)
-        add(glideCompiler)
         add(glideRuntime)
     }
 
     // Navigation
-    private const val navigationRuntime = "androidx.navigation:navigation-runtime:${Versions.navigation}"
-    private const val navigationRuntimeKtx = "androidx.navigation:navigation-runtime-ktx:${Versions.navigation}"
     private const val navigationUIKtx = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
-    private const val navigationUI = "androidx.navigation:navigation-ui:${Versions.navigation}"
-    private const val navigationFragment = "androidx.navigation:navigation-fragment:${Versions.navigation}"
     private const val navigationFragmentKtx = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
 
     val navigationLibs = arrayListOf<String>().apply {
-        add(navigationRuntime)
-        add(navigationRuntimeKtx)
         add(navigationUIKtx)
-        add(navigationUI)
-        add(navigationFragment)
         add(navigationFragmentKtx)
     }
 
@@ -95,7 +89,6 @@ object Dependencies {
         add(dataStore)
         add(roomRuntime)
         add(roomKtx)
-        add(roomCompiler)
     }
 
     // Dependency injection
@@ -104,7 +97,6 @@ object Dependencies {
 
     val diLibs = arrayListOf<String>().apply {
         add(hiltAndroid)
-        add(hiltCompiler)
     }
 
     // Coroutines
@@ -114,6 +106,19 @@ object Dependencies {
     val coroutinesLibs = arrayListOf<String>().apply {
         add(coroutinesCore)
         add(coroutines)
+    }
+
+    val compilerLibs = arrayListOf<String>().apply {
+        add(roomCompiler)
+        add(hiltCompiler)
+        add(lifecycleCompiler)
+        add(glideCompiler)
+    }
+}
+
+fun DependencyHandler.annotationProcessor(list: List<String>) {
+    list.forEach { dependency ->
+        add("annotationProcessor", dependency)
     }
 }
 
