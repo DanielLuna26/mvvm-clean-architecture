@@ -55,8 +55,8 @@ class SignInViewModelTest {
         val email = "d2gmail.com"
         val password = "asa211"
 
-        viewModel.email.postValue(email)
-        viewModel.password.postValue(password)
+        viewModel.email.value = email
+        viewModel.password.value = password
 
         assertFalse(viewModel.isFormValid())
     }
@@ -66,8 +66,8 @@ class SignInViewModelTest {
         val email = "d2gmail.com"
         val password = ""
 
-        viewModel.email.postValue(email)
-        viewModel.password.postValue(password)
+        viewModel.email.value = email
+        viewModel.password.value = password
 
         assertFalse(viewModel.isFormValid())
     }
@@ -89,8 +89,8 @@ class SignInViewModelTest {
 
         whenever(doLoginUseCase.invoke(SignIn(email, password))).thenReturn(flow)
 
-        viewModel.email.postValue(email)
-        viewModel.password.postValue(password)
+        viewModel.email.value = email
+        viewModel.password.value = password
 
         assertTrue(viewModel.isFormValid())
 
@@ -122,8 +122,8 @@ class SignInViewModelTest {
 
         whenever(doLoginUseCase.invoke(SignIn(email, password))).thenReturn(flow)
 
-        viewModel.email.postValue(email)
-        viewModel.password.postValue(password)
+        viewModel.email.value = email
+        viewModel.password.value = password
 
         assertTrue(viewModel.isFormValid())
 

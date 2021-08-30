@@ -7,6 +7,7 @@ class PostDiffCallbacks(
     private val newPosts: List<Post>,
     private val oldPosts: List<Post>
 ) : DiffUtil.Callback() {
+
     override fun getOldListSize(): Int = oldPosts.size
 
     override fun getNewListSize(): Int = newPosts.size

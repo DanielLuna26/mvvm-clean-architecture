@@ -18,6 +18,9 @@ class DoLoginUseCaseImpl @Inject constructor(
 
         emit(Resource.Loading)
 
-        emit(repository.signIn(signIn))
+        val response = repository.signIn(signIn)
+
+        emit(response)
+
     }
 }

@@ -64,7 +64,7 @@ class PostsFragment : Fragment(R.layout.fragment_posts) {
                         if ((visibleItems + pastVisibleItems) >= totalItemCount) {
                             loading = false
                             page++
-                            viewModel.getPosts(page)
+                            viewModel.getPosts()
                             loading = true
                         }
                     }
@@ -79,7 +79,7 @@ class PostsFragment : Fragment(R.layout.fragment_posts) {
 
             when (result) {
                 is Resource.Success -> viewModel.addItems(result)
-                is Resource.Failure -> handleApiErrors(result) { viewModel.getPosts(page) }
+                is Resource.Failure -> handleApiErrors(result) { viewModel.getPosts() }
             }
         }
 

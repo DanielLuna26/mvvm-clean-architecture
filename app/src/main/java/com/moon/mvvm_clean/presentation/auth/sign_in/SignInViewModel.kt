@@ -1,8 +1,6 @@
 package com.moon.mvvm_clean.presentation.auth.sign_in
 
 import androidx.databinding.ObservableArrayList
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.moon.mvvm_clean.data.datastore.UserPreferences
@@ -25,8 +23,9 @@ class SignInViewModel @Inject constructor(
     private val doLoginUseCase: DoLoginUseCase,
     private val userPreferences: UserPreferences
 ) : ViewModel() {
-    val email = MutableLiveData<String>()
-    val password = MutableLiveData<String>()
+
+    val email = MutableStateFlow<String?>(null)
+    val password = MutableStateFlow<String?>(null)
 
     private var _result = MutableStateFlow<Resource<Response<Session>>?>(null)
     val result : StateFlow<Resource<Response<Session>>?> get() = _result
